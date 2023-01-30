@@ -22,3 +22,7 @@ application {
     mainClass.set("com.github.renep.Hangman")
 }
 
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
