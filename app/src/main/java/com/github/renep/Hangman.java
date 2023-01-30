@@ -9,23 +9,26 @@ import java.util.Scanner;
 
 class Hangman {
 
+	String wordToGuess = "hangman";
+	int numberCharacters = wordToGuess.length();
 
-	static String wordToGuess = "hangman";
-	static int numberCharacters = wordToGuess.length();
+	Scanner scanner;
 
-	public static void printStatus(String guessedWord) {
+	public Hangman() {
+		// Stream to read from the console
+		InputStream input = System.in;
+		// The scanner scans the input.
+		scanner = new Scanner(input);
+	}
+
+
+	public void printStatus(String guessedWord) {
 		String message = "Runde 0. Bisher geraten: " + guessedWord + ". Was wählst du für ein Zeichen?";
 		System.out.println(message);
 	}
 
 
-	public static char askUserToGuessCharacter() {
-		// Stream to read from the console
-		InputStream input = System.in;
-
-		// The scanner scans the input.
-		Scanner scanner = new Scanner(input);
-
+	public char askUserToGuessCharacter() {
 		// and returns the first character that the user has entered.
 		char guessedChar = scanner.next().charAt(0);
 
@@ -33,7 +36,7 @@ class Hangman {
 		return guessedChar;
 	}
 
-	public static String getGuessedWord() {
+	public String getGuessedWord() {
 		String guessedWord = "";
 		for (int i = 0; i < numberCharacters; i++) {
 			guessedWord = guessedWord + "_";
@@ -42,7 +45,7 @@ class Hangman {
 	}
 
 
-	public static String createCurrentGuessedWord(char first, char second) {
+	public String createCurrentGuessedWord(char first, char second) {
 		String guessedWord = "";
 		for (int i = 0; i < wordToGuess.length(); i++) {
 			// i = 0, ch = "h"
@@ -63,7 +66,7 @@ class Hangman {
 	}
 
 
-	public static String createCurrentGuessedWord(ArrayList<Character> guessedCharacters) {
+	public String createCurrentGuessedWord(ArrayList<Character> guessedCharacters) {
 		String guessedWord = "";
 
 		System.out.println("guessedCharacters: " + guessedCharacters);
@@ -99,7 +102,8 @@ class Hangman {
 		return guessedWord;
 	}
 
-	public static void main(String[] args) {
+
+	void run() {
 
 		System.out.println("length: " + numberCharacters);
 
@@ -128,7 +132,16 @@ class Hangman {
 		}
 
 		System.out.println("You have won!");
+	}
 
+	void cleanup() {
+		scanner.close();
+	}
+
+	public static void main(String[] args) {
+		Hangman hangman = new Hangman();
+		hangman.run();
+		hangman.cleanup();
 	}
 
 
