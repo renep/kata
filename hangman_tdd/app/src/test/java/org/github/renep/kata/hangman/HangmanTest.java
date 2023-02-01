@@ -55,4 +55,22 @@ class HangmanTest {
 		String line = io.getNextLine();
 		assertEquals("Runde 0. Bisher geraten: ______. Was wählst du für ein Zeichen?", line);
 	}
+
+	@Test
+	void generated_guessWord_has_10_character() {
+		// given
+		hangman.wordToGuess = "1234567890";
+
+		// when
+		assertEquals("__________", hangman.generateGuessedWord());
+	}
+
+	@Test
+	void generated_guessWord_has_20_character() {
+		// given
+		hangman.wordToGuess = "12345678901234567890";
+
+		// when
+		assertEquals("____________________", hangman.generateGuessedWord());
+	}
 }

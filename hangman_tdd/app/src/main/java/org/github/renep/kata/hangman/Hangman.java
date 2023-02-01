@@ -13,10 +13,6 @@ public class Hangman {
 		this.io = io;
 	}
 
-	public String getGreeting() {
-		return "Hello";
-	}
-
 	public static void main(String[] args) {
 		new Hangman(new SystemInputOutput()).run();
 	}
@@ -27,10 +23,14 @@ public class Hangman {
 		io.println("Runde 0. Bisher geraten: " + guessedWord + ". Was wählst du für ein Zeichen?");
 	}
 
-	private String generateGuessedWord() {
+	String generateGuessedWord() {
 		String guessedWord = "_____";
 		if (wordToGuess != null) {
-			if (wordToGuess.length() != 5) {
+			if (wordToGuess.length() == 10) {
+				guessedWord = "__________";
+			} else if (wordToGuess.length() == 20) {
+				guessedWord = "____________________";
+			} else if (wordToGuess.length() != 5) {
 				guessedWord = "______";
 			}
 		} else {
