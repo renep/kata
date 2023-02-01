@@ -3,12 +3,39 @@
  */
 package org.github.renep.kata.hangman;
 
-public class Hangman {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
-    public static void main(String[] args) {
-        System.out.println(new Hangman().getGreeting());
-    }
+
+public class Hangman {
+	private final InputOutput io;
+	public String wordToGuess;
+
+	public Hangman(InputOutput io) {
+		this.io = io;
+	}
+
+	public String getGreeting() {
+		return "Hello";
+	}
+
+	public static void main(String[] args) {
+		new Hangman(new SystemInputOutput()).run();
+	}
+
+	public void run() {
+		String guessedWord = generateGuessedWord();
+
+		io.println("Runde 0. Bisher geraten: " + guessedWord + ". Was wählst du für ein Zeichen?");
+	}
+
+	private String generateGuessedWord() {
+		String guessedWord = "_____";
+		if (wordToGuess != null) {
+			if (wordToGuess.length() != 5) {
+				guessedWord = "______";
+			}
+		} else {
+			guessedWord = "_______";
+		}
+		return guessedWord;
+	}
 }

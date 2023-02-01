@@ -3,14 +3,56 @@
  */
 package org.github.renep.kata.hangman;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HangmanTest {
-	@Test
-	void appHasAGreeting() {
-		Hangman classUnderTest = new Hangman();
 
-		assertNotNull(classUnderTest.getGreeting());
+	Hangman hangman;
+	InputOutputFake io;
+
+	@BeforeEach
+	void setup() {
+		io = new InputOutputFake();
+		hangman = new Hangman(io);
+	}
+
+	@Test
+	void print_round_0_with_default_guessWord() {
+		// when
+		hangman.run();
+
+		// then
+		String line = io.getNextLine();
+		assertEquals("Runde 0. Bisher geraten: _______. Was wählst du für ein Zeichen?", line);
+	}
+
+
+	@Test
+	void print_round_0_with_guessWord_that_has_5_characters() {
+		// given
+		hangman.wordToGuess = "12345";
+
+		// when
+		hangman.run();
+
+		// then
+		String line = io.getNextLine();
+		assertEquals("Runde 0. Bisher geraten: _____. Was wählst du für ein Zeichen?", line);
+	}
+
+
+	@Test
+	void print_round_0_with_guessWord_that_has_6_characters() {
+		// given
+		hangman.wordToGuess = "123456";
+
+		// when
+		hangman.run();
+
+		// then
+		String line = io.getNextLine();
+		assertEquals("Runde 0. Bisher geraten: ______. Was wählst du für ein Zeichen?", line);
 	}
 }
