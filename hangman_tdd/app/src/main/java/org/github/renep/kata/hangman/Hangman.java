@@ -7,7 +7,9 @@ package org.github.renep.kata.hangman;
 
 public class Hangman {
 	private final InputOutput io;
-	public String wordToGuess;
+
+
+	private String wordToGuess = "hangman";
 
 	public Hangman(InputOutput io) {
 		this.io = io;
@@ -25,17 +27,20 @@ public class Hangman {
 
 	String generateGuessedWord() {
 		String guessedWord = "_____";
-		if (wordToGuess != null) {
-			if (wordToGuess.length() == 10) {
-				guessedWord = "__________";
-			} else if (wordToGuess.length() == 20) {
-				guessedWord = "____________________";
-			} else if (wordToGuess.length() != 5) {
-				guessedWord = "______";
-			}
-		} else {
+		if (wordToGuess.length() == 10) {
+			guessedWord = "__________";
+		} else if (wordToGuess.length() == 20) {
+			guessedWord = "____________________";
+		} else if (wordToGuess.length() == 7) {
 			guessedWord = "_______";
+		} else if (wordToGuess.length() == 6) {
+			guessedWord = "______";
 		}
 		return guessedWord;
+	}
+	public void setWordToGuess(String wordToGuess) {
+		if (wordToGuess != null) {
+			this.wordToGuess = wordToGuess;
+		}
 	}
 }

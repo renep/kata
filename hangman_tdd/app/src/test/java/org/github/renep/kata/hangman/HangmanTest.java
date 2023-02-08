@@ -32,7 +32,7 @@ class HangmanTest {
 	@Test
 	void print_round_0_with_guessWord_that_has_5_characters() {
 		// given
-		hangman.wordToGuess = "12345";
+		hangman.setWordToGuess("12345");
 
 		// when
 		hangman.run();
@@ -46,7 +46,7 @@ class HangmanTest {
 	@Test
 	void print_round_0_with_guessWord_that_has_6_characters() {
 		// given
-		hangman.wordToGuess = "123456";
+		hangman.setWordToGuess("123456");
 
 		// when
 		hangman.run();
@@ -59,7 +59,7 @@ class HangmanTest {
 	@Test
 	void generated_guessWord_has_10_character() {
 		// given
-		hangman.wordToGuess = "1234567890";
+		hangman.setWordToGuess("1234567890");
 
 		// when
 		assertEquals("__________", hangman.generateGuessedWord());
@@ -68,9 +68,32 @@ class HangmanTest {
 	@Test
 	void generated_guessWord_has_20_character() {
 		// given
-		hangman.wordToGuess = "12345678901234567890";
+		hangman.setWordToGuess("12345678901234567890");
 
 		// when
+		assertEquals("____________________", hangman.generateGuessedWord());
+	}
+
+	@Test
+	void wordToGuess_should_not_be_null() {
+		assertEquals("_______", hangman.generateGuessedWord());
+//		assertNotNull(hangman.wordToGuess);
+	}
+
+	@Test
+	void wordToGuess_should_not_be_null_2() {
+		hangman.setWordToGuess(null);
+
+		// then
+		assertEquals("_______", hangman.generateGuessedWord());
+	}
+
+	@Test
+	void wordToGuess_should_not_be_null_3() {
+		hangman.setWordToGuess("12345678901234567890");
+		hangman.setWordToGuess(null);
+
+		// then
 		assertEquals("____________________", hangman.generateGuessedWord());
 	}
 }
