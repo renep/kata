@@ -35,6 +35,10 @@ public class Hangman {
 			guessedWord = "_______";
 		} else if (wordToGuess.length() == 6) {
 			guessedWord = "______";
+		} else if (wordToGuess.length() == 8) {
+			guessedWord = "________";
+		} else if (wordToGuess.length() == 9) {
+			guessedWord = "_________";
 		}
 		return guessedWord;
 	}

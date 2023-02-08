@@ -96,4 +96,21 @@ class HangmanTest {
 		// then
 		assertEquals("____________________", hangman.generateGuessedWord());
 	}
+
+	@Test
+	void generatedWord_has_same_length_as_wordToGuess () {
+		String wordToGuess = "aaaaa";
+		String expectedResult = "_____";
+		for (int i=0; i<5; i++) {
+			wordToGuess += "a";
+			expectedResult += "_";
+
+			// when
+			hangman.setWordToGuess(wordToGuess);
+
+			// then
+			assertEquals(expectedResult, hangman.generateGuessedWord());
+		}
+
+	}
 }
