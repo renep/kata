@@ -26,22 +26,13 @@ public class Hangman {
 	}
 
 	String generateGuessedWord() {
-		String guessedWord = "_____";
-		if (wordToGuess.length() == 10) {
-			guessedWord = "__________";
-		} else if (wordToGuess.length() == 20) {
-			guessedWord = "____________________";
-		} else if (wordToGuess.length() == 7) {
-			guessedWord = "_______";
-		} else if (wordToGuess.length() == 6) {
-			guessedWord = "______";
-		} else if (wordToGuess.length() == 8) {
-			guessedWord = "________";
-		} else if (wordToGuess.length() == 9) {
-			guessedWord = "_________";
+		String guessedWord = "";
+		for(int index=0; index != wordToGuess.length(); index++) {
+			guessedWord = guessedWord + "_";
 		}
 		return guessedWord;
 	}
+
 	public void setWordToGuess(String wordToGuess) {
 		if (wordToGuess != null) {
 			this.wordToGuess = wordToGuess;
