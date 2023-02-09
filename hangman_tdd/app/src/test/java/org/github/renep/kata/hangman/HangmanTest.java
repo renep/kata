@@ -99,9 +99,9 @@ class HangmanTest {
 
 	@Test
 	void generatedWord_has_same_length_as_wordToGuess () {
-		String wordToGuess = "aaaaa";
-		String expectedResult = "_____";
-		for (int i=0; i<5; i++) {
+		String wordToGuess = "";
+		String expectedResult = "";
+		for (int i=0; i<25; i++) {
 			wordToGuess += "a";
 			expectedResult += "_";
 
