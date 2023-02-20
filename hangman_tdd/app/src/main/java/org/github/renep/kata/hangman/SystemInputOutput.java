@@ -6,4 +6,9 @@ public class SystemInputOutput implements InputOutput {
 	public void println(String line) {
 		System.out.println(line);
 	}
+
+	@Override
+	public char readChar() {
+		return 0;
+	}
 }

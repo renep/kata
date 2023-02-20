@@ -113,4 +113,93 @@ class HangmanTest {
 		}
 
 	}
+
+	@Test
+	void waiting_for_user_input() {
+		io.printlnConsumer = (InputOutputFake.PrintData data) -> {
+			assertEquals("Runde 0. Bisher geraten: _______. Was wählst du für ein Zeichen?", data.line());
+			assertFalse(io.characterWasRead);
+		};
+
+		// when
+		hangman.run();
+
+		// then
+		assertTrue(io.characterWasRead);
+	}
+
+
+	@Test
+	void current_status_shows_0_rounds_when_no_character_was_guessed() {
+		var statusMessage = hangman.currentMessage();
+
+		// then
+		assertEquals("Runde 0. Bisher geraten: _______.", statusMessage);
+		assertTrue(statusMessage.startsWith("Runde 0."));
+	}
+
+	@Test
+	void current_status_shows_one_round_when_one_character_was_guessed() {
+		// when
+		hangman.addGuessedCharacter('h');
+
+		// then
+		var statusMessage = hangman.currentMessage();
+		assertTrue(statusMessage.startsWith("Runde 1."));
+	}
+
+	@Test
+	void current_status_shows_two_round_when_character_was_guessed_twice() {
+		// when
+		hangman.addGuessedCharacter('h');
+		hangman.addGuessedCharacter('h');
+
+		// then
+		var statusMessage = hangman.currentMessage();
+		assertTrue(statusMessage.startsWith("Runde 2."));
+	}
+
+	@Test
+	void generated_word_shows_correctly_guess_character() {
+		// when
+		hangman.addGuessedCharacter('h');
+
+		// then
+		assertEquals(hangman.generateGuessedWord(), "h______");
+	}
+
+	@Test
+	void generated_word_shows_correctly_guess_character_when_guessed_2_times() {
+		// when
+		hangman.addGuessedCharacter('h');
+		hangman.addGuessedCharacter('a');
+
+		// then
+		assertEquals(hangman.generateGuessedWord(), "ha___a_");
+	}
+
+	@Test
+	void status_message_shows_correctly_guess_word_when_guessed_2_times() {
+		// when
+		hangman.addGuessedCharacter('h');
+		hangman.addGuessedCharacter('a');
+
+		// then
+		var statusMessage = hangman.currentMessage();
+		assertEquals("Runde 2. Bisher geraten: ha___a_.", statusMessage);
+	}
+
+	@Test
+	void when_word_was_guessed_then_status_message_shows_winning_message() {
+		// when
+		hangman.addGuessedCharacter('h');
+		hangman.addGuessedCharacter('a');
+		hangman.addGuessedCharacter('n');
+		hangman.addGuessedCharacter('g');
+		hangman.addGuessedCharacter('m');
+
+		// then
+		var statusMessage = hangman.currentMessage();
+		assertEquals("You are a winner!", statusMessage);
+	}
 }

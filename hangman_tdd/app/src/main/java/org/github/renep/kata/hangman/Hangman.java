@@ -4,12 +4,17 @@
 package org.github.renep.kata.hangman;
 
 
+import com.google.common.collect.ImmutableSet;
+
+import java.util.ArrayList;
 
 public class Hangman {
 	private final InputOutput io;
 
+	private int rounds = 0;
 
 	private String wordToGuess = "hangman";
+	private ArrayList<Character> guessCharacters = new ArrayList<>();
 
 	public Hangman(InputOutput io) {
 		this.io = io;
@@ -23,12 +28,18 @@ public class Hangman {
 		String guessedWord = generateGuessedWord();
 
 		io.println("Runde 0. Bisher geraten: " + guessedWord + ". Was wählst du für ein Zeichen?");
+		io.readChar();
 	}
 
 	String generateGuessedWord() {
 		String guessedWord = "";
 		for(int index=0; index != wordToGuess.length(); index++) {
-			guessedWord = guessedWord + "_";
+			char currentWordToGuessCharacter = wordToGuess.charAt(index);
+			if (guessCharacters.contains(currentWordToGuessCharacter)) {
+				guessedWord = guessedWord + currentWordToGuessCharacter;
+			} else {
+				guessedWord = guessedWord + "_";
+			}
 		}
 		return guessedWord;
 	}
@@ -37,5 +48,17 @@ public class Hangman {
 		if (wordToGuess != null) {
 			this.wordToGuess = wordToGuess;
 		}
+	}
+
+	public String currentMessage() {
+		if (wordToGuess.equals(generateGuessedWord())) {
+			return "You are a winner!";
+		}
+		return "Runde " + rounds + ". Bisher geraten: " + generateGuessedWord() + ".";
+	}
+
+	public void addGuessedCharacter(char ch) {
+		rounds += 1;
+		guessCharacters.add(ch);
 	}
 }
